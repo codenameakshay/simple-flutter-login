@@ -14,13 +14,21 @@ class _CarouselState extends State<Carousel> {
   final databaseReference2 = Firestore.instance;
   Future<QuerySnapshot> dbr;
   List data = [];
-  List images = [];
   List names = [];
-  List locations = [];
+  List ids = [];
+  List wallpaper_urls = [];
+  List wallpaper_thumbs = [];
+  List wallpaper_providers = [];
+  List widgets = [];
+  List widget_urls = [];
+  List icons = [];
+  List icon_urls = [];
+  List descs = [];
+  List images = [];
   @override
   void initState() {
     super.initState();
-    dbr = databaseReference2.collection("users").getDocuments();
+    dbr = databaseReference2.collection("setups").getDocuments();
     setState(() {});
   }
 
@@ -126,17 +134,43 @@ class _CarouselState extends State<Carousel> {
                             (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                           if (snapshot.hasData) {
                             data = [];
-                            images = [];
                             names = [];
-                            locations = [];
+                            ids = [];
+                            wallpaper_urls = [];
+                            wallpaper_thumbs = [];
+                            wallpaper_providers = [];
+                            widgets = [];
+                            widget_urls = [];
+                            icons = [];
+                            icon_urls = [];
+                            descs = [];
                             snapshot.data.documents
                                 .forEach((element) => data.add(element.data));
-                            snapshot.data.documents.forEach((element) =>
-                                images.add(element.data["pgImage"]));
                             snapshot.data.documents.forEach(
-                                (element) => names.add(element.data["pgName"]));
+                                (element) => names.add(element.data["name"]));
+                            snapshot.data.documents.forEach(
+                                (element) => ids.add(element.data["id"]));
                             snapshot.data.documents.forEach((element) =>
-                                locations.add(element.data["pgLocation"]));
+                                wallpaper_urls
+                                    .add(element.data["wallpaper_url"]));
+                            snapshot.data.documents.forEach((element) =>
+                                wallpaper_thumbs
+                                    .add(element.data["wallpaper_thumb"]));
+                            snapshot.data.documents.forEach((element) =>
+                                wallpaper_providers
+                                    .add(element.data["wallpaper_provider"]));
+                            snapshot.data.documents.forEach((element) =>
+                                widgets.add(element.data["widget"]));
+                            snapshot.data.documents.forEach((element) =>
+                                widget_urls.add(element.data["widget_url"]));
+                            snapshot.data.documents.forEach(
+                                (element) => icons.add(element.data["icon"]));
+                            snapshot.data.documents.forEach((element) =>
+                                icon_urls.add(element.data["icon_url"]));
+                            snapshot.data.documents.forEach(
+                                (element) => descs.add(element.data["desc"]));
+                            snapshot.data.documents.forEach(
+                                (element) => images.add(element.data["image"]));
 
                             return Container(
                               child: new Scrollbar(
@@ -146,7 +180,7 @@ class _CarouselState extends State<Carousel> {
                                       (BuildContext context, int index) {
                                     return ContentTile(
                                       names: names,
-                                      locations: locations,
+                                      locations: wallpaper_urls,
                                       images: images,
                                       index: index,
                                     );

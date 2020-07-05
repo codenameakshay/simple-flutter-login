@@ -1,42 +1,111 @@
 {
   "project_info": {
-    "project_number": "682655945835",
-    "firebase_url": "https://yehlo-app.firebaseio.com",
-    "project_id": "yehlo-app",
-    "storage_bucket": "yehlo-app.appspot.com"
+    "project_number": "91450035905",
+    "firebase_url": "https://prism-wallpapers.firebaseio.com",
+    "project_id": "prism-wallpapers",
+    "storage_bucket": "prism-wallpapers.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:682655945835:android:0fce5ab38e67bfb9f84d2e",
+        "mobilesdk_app_id": "1:91450035905:android:b7da0ec9b9f7d2f73d0e40",
         "android_client_info": {
-          "package_name": "com.example.yehlo"
+          "package_name": "com.hash.dataupload"
         }
       },
       "oauth_client": [
         {
-          "client_id": "682655945835-dg6t68gbkg5j2qj32ljueark4israfeu.apps.googleusercontent.com",
+          "client_id": "91450035905-eski2dlcmjv7anorfbsfu58n17bobddb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.yehlo",
-            "certificate_hash": "a37cd97fba789cb2e40a9f0b875d1b7916662385"
+            "package_name": "com.hash.dataupload",
+            "certificate_hash": "184f2ebd0086d454f6ab1ba5149343ac04e85a11"
           }
         },
         {
-          "client_id": "682655945835-s6bjdiiaakq1352agittvtp844ui3ipo.apps.googleusercontent.com",
+          "client_id": "91450035905-dden88dcco66afn5n6cs5hi3kv2k1ds1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDB0jepLK6OS77AABTHJspSiOId-IAWEqY"
+          "current_key": "AIzaSyDo9RtGlgawFJn6uU3saFrZtGAYAWbQV5g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "682655945835-s6bjdiiaakq1352agittvtp844ui3ipo.apps.googleusercontent.com",
+              "client_id": "91450035905-dden88dcco66afn5n6cs5hi3kv2k1ds1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91450035905:android:215e4a90a1bd89db3d0e40",
+        "android_client_info": {
+          "package_name": "com.hash.prism"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91450035905-745u1qmna3tk5b3nanvvjkl9jsei59d4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hash.prism",
+            "certificate_hash": "d15ce9aed9dc2a01f69f2ea9dc11b6f46185664a"
+          }
+        },
+        {
+          "client_id": "91450035905-gqebosv6b18egg6su0n9b7edsjflvuok.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hash.prism",
+            "certificate_hash": "d7221b93283ac40542712d4d0d4f9b03af4a521a"
+          }
+        },
+        {
+          "client_id": "91450035905-p6j567r11ssqu0v04gvumn979v9rgne1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hash.prism",
+            "certificate_hash": "713ad2ca4bd775e510c62f74082e66c9cc594541"
+          }
+        },
+        {
+          "client_id": "91450035905-0ufis06vmddm6o057944c0fcg4eoje4l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hash.prism",
+            "certificate_hash": "184f2ebd0086d454f6ab1ba5149343ac04e85a11"
+          }
+        },
+        {
+          "client_id": "91450035905-ju25j95br3878h7dr8rud0r5hairtrjp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hash.prism",
+            "certificate_hash": "a37cd97fba789cb2e40a9f0b875d1b7916662385"
+          }
+        },
+        {
+          "client_id": "91450035905-dden88dcco66afn5n6cs5hi3kv2k1ds1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo9RtGlgawFJn6uU3saFrZtGAYAWbQV5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91450035905-dden88dcco66afn5n6cs5hi3kv2k1ds1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -4,9 +4,11 @@ class InputTextField extends StatelessWidget {
   const InputTextField({
     Key key,
     @required this.myController,
+    @required this.text,
   }) : super(key: key);
 
   final TextEditingController myController;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class InputTextField extends StatelessWidget {
           controller: myController,
           decoration: InputDecoration(
             fillColor: Colors.red,
-            labelText: "PG Name",
+            labelText: text,
             labelStyle: TextStyle(
               fontFamily: "Noto Sans",
               color: Color(0xFF1E5C5A),
