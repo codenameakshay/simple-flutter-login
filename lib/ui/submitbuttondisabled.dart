@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SubmitButtonDisabled extends StatelessWidget {
   const SubmitButtonDisabled({
@@ -9,7 +8,6 @@ class SubmitButtonDisabled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 170.h,
       child: Center(
         child: MaterialButton(
           splashColor: Colors.transparent,
@@ -54,13 +52,6 @@ class SubmitButtonDisabled extends StatelessWidget {
             ),
           ),
         ),
-        // child: Text(
-        //   "Submit",
-        //   style: TextStyle(
-        //       fontFamily: "Noto Sans",
-        //       color: Colors.grey,
-        //       fontSize: 20),
-        // ),
       ),
     );
   }

@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 
-class InputTextField extends StatelessWidget {
+class InputTextField extends StatefulWidget {
   const InputTextField({
     Key key,
     @required this.myController,
     @required this.text,
+    @required this.icon,
+    @required this.initialText,
   }) : super(key: key);
 
   final TextEditingController myController;
   final String text;
+  final IconData icon;
+  final String initialText;
+
+  @override
+  _InputTextFieldState createState() => _InputTextFieldState();
+}
+
+class _InputTextFieldState extends State<InputTextField> {
+  @override
+  void initState() {
+    widget.myController.text = widget.initialText;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +42,10 @@ class InputTextField extends StatelessWidget {
           ),
         ),
         child: TextField(
-          controller: myController,
+          controller: widget.myController,
           decoration: InputDecoration(
             fillColor: Colors.red,
-            labelText: text,
+            labelText: widget.text,
             labelStyle: TextStyle(
               fontFamily: "Noto Sans",
               color: Color(0xFF1E5C5A),
@@ -41,7 +56,7 @@ class InputTextField extends StatelessWidget {
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
             prefixIcon: Icon(
-              Icons.location_city,
+              widget.icon,
               color: Color(0xFF1E5C5A),
             ),
           ),

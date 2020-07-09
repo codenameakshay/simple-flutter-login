@@ -4,9 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yehlo/screens/carousel.dart';
-import 'package:yehlo/screens/sign_in.dart';
-import 'package:yehlo/ui/inputlocationfield.dart';
 import 'package:yehlo/ui/inputtextfiels.dart';
 import 'package:yehlo/ui/submitbutton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -94,7 +93,11 @@ class _DetailsSheetState extends State<DetailsSheet> {
   }
 
   void createRecord() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     await databaseReference.collection("setups").add({
+      'by': preferences.getString('by'),
+      'email': preferences.getString('email'),
+      'userPhoto': preferences.getString('userPhoto'),
       'icon': myController8.text,
       'icon_url': myController9.text,
       'id': myController2.text,
@@ -105,7 +108,8 @@ class _DetailsSheetState extends State<DetailsSheet> {
       'widget': myController6.text,
       'widget_url': myController7.text,
       'desc': myController0.text,
-      'image': _uploadedFileURL
+      'image': _uploadedFileURL,
+      'review': false,
     });
   }
 
@@ -145,7 +149,7 @@ class _DetailsSheetState extends State<DetailsSheet> {
         margin: EdgeInsets.all(0),
         color: Color(0xFFF2F2F2),
         child: SizedBox(
-          height: 980.h,
+          height: 1200.h,
           width: 720.w,
           child: SingleChildScrollView(
             child: Column(
@@ -159,7 +163,7 @@ class _DetailsSheetState extends State<DetailsSheet> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          "Details",
+                          "Setups",
                           style: TextStyle(
                             fontFamily: "Berkshire Swash",
                             fontSize: 58,
@@ -207,10 +211,10 @@ class _DetailsSheetState extends State<DetailsSheet> {
                               padding:
                                   const EdgeInsets.fromLTRB(10, 10, 10, 10),
                               child: Text(
-                                'View Data',
+                                'Already uploaded',
                                 style: TextStyle(
                                   fontFamily: "Noto Sans",
-                                  fontSize: 20,
+                                  fontSize: 16,
                                   color: Color(0xFFF2F2F2),
                                 ),
                               ),
@@ -237,43 +241,63 @@ class _DetailsSheetState extends State<DetailsSheet> {
                 ),
                 InputTextField(
                   myController: myController1,
-                  text: "Name of the setup",
+                  text: "Name of the Setup",
+                  icon: Icons.person,
+                  initialText: "SetupName",
                 ),
                 InputTextField(
                   myController: myController0,
                   text: "Description",
+                  icon: Icons.text_fields,
+                  initialText: "SetupDesc",
                 ),
                 InputTextField(
                   myController: myController2,
-                  text: "ID",
+                  text: "Wallpaper ID",
+                  icon: Icons.wallpaper,
+                  initialText: "ABCDEF",
                 ),
                 InputTextField(
                   myController: myController3,
-                  text: "Wallpaper_url",
+                  text: "Wallpaper URL",
+                  icon: Icons.insert_link,
+                  initialText: "https://w.wallhaven.cc/full/",
                 ),
                 InputTextField(
                   myController: myController4,
-                  text: "Wallpaper_thumb",
+                  text: "Thumbnail URL of wallpaper",
+                  icon: Icons.photo,
+                  initialText: "https://th.wallhaven.cc/orig/",
                 ),
                 InputTextField(
                   myController: myController5,
-                  text: "Wallpaper_provider",
+                  text: "Wallpaper provider",
+                  icon: Icons.business,
+                  initialText: "WallHaven",
                 ),
                 InputTextField(
                   myController: myController6,
-                  text: "Widget",
+                  text: "Widget Name",
+                  icon: Icons.widgets,
+                  initialText: "WidgetName",
                 ),
                 InputTextField(
                   myController: myController7,
-                  text: "Widget_url",
+                  text: "Widget Play Store URL",
+                  icon: Icons.play_arrow,
+                  initialText: "https://play.google.com/store/apps/details?id=",
                 ),
                 InputTextField(
                   myController: myController8,
-                  text: "icon",
+                  text: "Icon Pack Name",
+                  icon: Icons.image,
+                  initialText: "IconName",
                 ),
                 InputTextField(
                   myController: myController9,
-                  text: "icon_url",
+                  text: "Icon Pack Play Store URL",
+                  icon: Icons.play_arrow,
+                  initialText: "https://play.google.com/store/apps/details?id=",
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 5, 30, 5),
@@ -300,7 +324,7 @@ class _DetailsSheetState extends State<DetailsSheet> {
                                 ? "Uploading"
                                 : _uploadedFileURL != null
                                     ? "Uploaded"
-                                    : "PG Image",
+                                    : "Setup Image",
                             labelStyle: TextStyle(
                               fontFamily: "Noto Sans",
                               color: Color(0xFF1E5C5A),

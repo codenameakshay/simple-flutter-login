@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 String userId;
 String name;
@@ -20,7 +21,7 @@ Future<String> signInWithGoogle() async {
 
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
-
+  SharedPreferences preferences = await SharedPreferences.getInstance();
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 
@@ -31,8 +32,11 @@ Future<String> signInWithGoogle() async {
   assert(user.displayName != null);
   assert(user.photoUrl != null);
   name = user.displayName;
+  preferences.setString('by', name);
   email = user.email;
+  preferences.setString('email', email);
   imageUrl = user.photoUrl;
+  preferences.setString('userPhoto', imageUrl);
   if (name.contains(" ")) {
     name = name.substring(0, name.indexOf(" "));
   }
@@ -42,6 +46,7 @@ Future<String> signInWithGoogle() async {
 
 void signOutGoogle() async {
   await googleSignIn.signOut();
-
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  preferences.clear();
   print("User Sign Out");
 }
