@@ -27,6 +27,7 @@ class _WallSheetState extends State<WallSheet> {
   final myController4 = TextEditingController();
   final myController5 = TextEditingController();
   final myController6 = TextEditingController();
+  final myController7 = TextEditingController();
   File _image;
   String _uploadedFileURL;
   bool isUploading = false;
@@ -69,7 +70,7 @@ class _WallSheetState extends State<WallSheet> {
     });
     image.length().then((value) =>
         {myController5.text = (value / 1024 / 1024).toStringAsFixed(2) + "MB"});
-    // uploadFile();
+    uploadFile();
     print(image.toString());
   }
 
@@ -99,14 +100,14 @@ class _WallSheetState extends State<WallSheet> {
       'by': preferences.getString('by'),
       'email': preferences.getString('email'),
       'userPhoto': preferences.getString('userPhoto'),
-      'id': myController2.text,
-      'name': myController1.text,
-      'wallpaper_provider': myController5.text,
-      'wallpaper_thumb': myController4.text,
-      'wallpaper_url': myController3.text,
-      'widget': myController6.text,
-      'image': _uploadedFileURL,
-      'review': false,
+      'id': myController1.text,
+      'wallpaper_provider': myController4.text,
+      'wallpaper_thumb': _uploadedFileURL,
+      'wallpaper_url': _uploadedFileURL,
+      'resolution': myController3.text,
+      'size': myController5.text,
+      'category': myController6.text,
+      'desc': myController7.text,
     });
   }
 
@@ -124,6 +125,7 @@ class _WallSheetState extends State<WallSheet> {
     myController4.dispose();
     myController5.dispose();
     myController6.dispose();
+    myController7.dispose();
     super.dispose();
   }
 
@@ -261,6 +263,12 @@ class _WallSheetState extends State<WallSheet> {
                   text: "Wallpaper Size",
                   icon: Icons.play_arrow,
                   initialText: "2MB",
+                ),
+                InputTextField(
+                  myController: myController7,
+                  text: "Desc",
+                  icon: Icons.image,
+                  initialText: "Designed by Freepik",
                 ),
                 InputTextField(
                   myController: myController6,
