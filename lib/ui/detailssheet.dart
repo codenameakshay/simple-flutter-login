@@ -383,7 +383,7 @@ class _DetailsSheetState extends State<DetailsSheet> {
                         myController8.text != "" &&
                         myController9.text != "" &&
                         myController0.text != ""
-                    ? SubmitButton(createRecord)
+                    ? SubmitButton(createRecord, false)
                     : SubmitButtonDisabled(),
               ],
             ),

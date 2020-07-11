@@ -3,32 +3,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:yehlo/screens/input_form.dart';
 import 'package:yehlo/screens/sign_in.dart';
+import 'package:yehlo/screens/wallpaper_form.dart';
 import 'package:yehlo/ui/contenttile.dart';
 
-class Carousel extends StatefulWidget {
+class WallShow extends StatefulWidget {
   @override
-  _CarouselState createState() => _CarouselState();
+  _WallShowState createState() => _WallShowState();
 }
 
-class _CarouselState extends State<Carousel> {
+class _WallShowState extends State<WallShow> {
   final databaseReference2 = Firestore.instance;
   Future<QuerySnapshot> dbr;
-  List data = [];
-  List names = [];
   List ids = [];
-  List wallpaper_urls = [];
-  List wallpaper_thumbs = [];
-  List wallpaper_providers = [];
-  List widgets = [];
-  List widget_urls = [];
-  List icons = [];
-  List icon_urls = [];
   List descs = [];
-  List images = [];
+  List wallpaper_urls = [];
   @override
   void initState() {
     super.initState();
-    dbr = databaseReference2.collection("setups").getDocuments();
+    dbr = databaseReference2.collection("walls").getDocuments();
     setState(() {});
   }
 
@@ -64,7 +56,7 @@ class _CarouselState extends State<Carousel> {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return InputForm();
+                return WallpaperForm();
               },
             ),
           );
@@ -106,7 +98,7 @@ class _CarouselState extends State<Carousel> {
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: Text(
-                              "Setups",
+                              "Walls",
                               style: TextStyle(
                                 fontFamily: "Berkshire Swash",
                                 fontSize: 58,
@@ -133,55 +125,27 @@ class _CarouselState extends State<Carousel> {
                         builder:
                             (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                           if (snapshot.hasData) {
-                            data = [];
-                            names = [];
                             ids = [];
-                            wallpaper_urls = [];
-                            wallpaper_thumbs = [];
-                            wallpaper_providers = [];
-                            widgets = [];
-                            widget_urls = [];
-                            icons = [];
-                            icon_urls = [];
                             descs = [];
-                            snapshot.data.documents
-                                .forEach((element) => data.add(element.data));
-                            snapshot.data.documents.forEach(
-                                (element) => names.add(element.data["name"]));
+                            wallpaper_urls = [];
                             snapshot.data.documents.forEach(
                                 (element) => ids.add(element.data["id"]));
+                            snapshot.data.documents.forEach(
+                                (element) => descs.add(element.data["desc"]));
                             snapshot.data.documents.forEach((element) =>
                                 wallpaper_urls
                                     .add(element.data["wallpaper_url"]));
-                            snapshot.data.documents.forEach((element) =>
-                                wallpaper_thumbs
-                                    .add(element.data["wallpaper_thumb"]));
-                            snapshot.data.documents.forEach((element) =>
-                                wallpaper_providers
-                                    .add(element.data["wallpaper_provider"]));
-                            snapshot.data.documents.forEach((element) =>
-                                widgets.add(element.data["widget"]));
-                            snapshot.data.documents.forEach((element) =>
-                                widget_urls.add(element.data["widget_url"]));
-                            snapshot.data.documents.forEach(
-                                (element) => icons.add(element.data["icon"]));
-                            snapshot.data.documents.forEach((element) =>
-                                icon_urls.add(element.data["icon_url"]));
-                            snapshot.data.documents.forEach(
-                                (element) => descs.add(element.data["desc"]));
-                            snapshot.data.documents.forEach(
-                                (element) => images.add(element.data["image"]));
 
                             return Container(
                               child: new Scrollbar(
                                 child: ListView.builder(
-                                  itemCount: data.length,
+                                  itemCount: ids.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return ContentTile(
-                                      names: names,
-                                      locations: wallpaper_urls,
-                                      images: images,
+                                      names: ids,
+                                      locations: descs,
+                                      images: wallpaper_urls,
                                       index: index,
                                     );
                                   },

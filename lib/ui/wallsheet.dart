@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yehlo/screens/carousel.dart';
+import 'package:yehlo/screens/wallshow.dart';
 import 'package:yehlo/ui/inputtextfiels.dart';
 import 'package:yehlo/ui/submitbutton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -173,7 +174,7 @@ class _WallSheetState extends State<WallSheet> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return Carousel();
+                                  return WallShow();
                                 },
                               ),
                             );
@@ -356,7 +357,7 @@ class _WallSheetState extends State<WallSheet> {
                         myController4.text != "" &&
                         myController5.text != "" &&
                         myController6.text != ""
-                    ? SubmitButton(createRecord)
+                    ? SubmitButton(createRecord, true)
                     : SubmitButtonDisabled(),
               ],
             ),

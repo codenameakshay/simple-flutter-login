@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:yehlo/screens/carousel.dart';
+import 'package:yehlo/screens/wallshow.dart';
 
 class SubmitButton extends StatefulWidget {
   Function function;
-  SubmitButton(this.function);
+  bool wall;
+  SubmitButton(this.function, this.wall);
   @override
   _SubmitButtonState createState() => _SubmitButtonState();
 }
@@ -19,13 +21,21 @@ class _SubmitButtonState extends State<SubmitButton> {
         HapticFeedback.vibrate();
         widget.function();
         Navigator.of(context).pop();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return Carousel();
-            },
-          ),
-        );
+        widget.wall
+            ? Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return WallShow();
+                  },
+                ),
+              )
+            : Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Carousel();
+                  },
+                ),
+              );
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       highlightElevation: 0,
