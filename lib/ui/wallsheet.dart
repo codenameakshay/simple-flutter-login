@@ -34,6 +34,7 @@ class _WallSheetState extends State<WallSheet> {
   bool islocation = false;
 
   void randomId() {
+    id = "";
     var alp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split("");
     var r = new Random();
     var choice = r.nextInt(4);
@@ -54,7 +55,7 @@ class _WallSheetState extends State<WallSheet> {
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-
+    randomId();
     setState(() {
       _image = image;
     });
@@ -66,6 +67,8 @@ class _WallSheetState extends State<WallSheet> {
     setState(() {
       myController3.text = res;
     });
+    image.length().then((value) =>
+        {myController5.text = (value / 1024 / 1024).toStringAsFixed(2) + "MB"});
     // uploadFile();
     print(image.toString());
   }
