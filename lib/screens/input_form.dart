@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yehlo/screens/wallpaper_form.dart';
 import 'package:yehlo/ui/backdrop.dart';
 import 'package:yehlo/ui/detailssheet.dart';
 
@@ -17,6 +18,21 @@ class _InputFormState extends State<InputForm> {
         children: <Widget>[
           Backdrop(),
           DetailsSheet(),
+          Positioned(
+            top: 20,
+            right: 20,
+            child: IconButton(
+              icon: Icon(Icons.wallpaper),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WallpaperForm(),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
