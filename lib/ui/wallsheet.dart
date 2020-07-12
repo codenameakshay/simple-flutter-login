@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
+import 'package:github/github.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yehlo/screens/carousel.dart';
+import 'package:yehlo/globals.dart';
 import 'package:yehlo/screens/wallshow.dart';
 import 'package:yehlo/ui/inputtextfiels.dart';
 import 'package:yehlo/ui/submitbutton.dart';
@@ -14,6 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as Path;
 import 'package:yehlo/ui/submitbuttondisabled.dart';
+import 'package:image/image.dart' as Img;
 
 class WallSheet extends StatefulWidget {
   @override
@@ -31,6 +35,7 @@ class _WallSheetState extends State<WallSheet> {
   final myController7 = TextEditingController();
   File _image;
   String _uploadedFileURL;
+  String _uploadedResizedFileURL;
   bool isUploading = false;
   String id = "";
   bool islocation = false;
@@ -79,20 +84,36 @@ class _WallSheetState extends State<WallSheet> {
     setState(() {
       isUploading = true;
     });
-    StorageReference storageReference = FirebaseStorage.instance
-        .ref()
-        .child("Wallpapers")
-        .child('${Path.basename(_image.path)}');
-    StorageUploadTask uploadTask = storageReference.putFile(_image);
-    await uploadTask.onComplete;
+    List<int> imageBytes = await _image.readAsBytes();
+    Img.Image thumbnail =
+        Img.copyResize(Img.decodeImage(imageBytes), width: 250, height: 500);
+    List<int> imageBytesThumb = Img.encodePng(thumbnail);
+    String base64Image = base64Encode(imageBytes);
+    String base64ImageThumb = base64Encode(imageBytesThumb);
+    var github = GitHub(auth: Authentication.basic(username, password));
+    github.repositories
+        .createFile(
+            RepositorySlug('codenameakshay2', 'prism-walls'),
+            CreateFile(
+                message: "${Path.basename(_image.path)}",
+                content: base64Image,
+                path: '${Path.basename(_image.path)}'))
+        .then((value) => setState(() {
+              _uploadedFileURL = value.content.downloadUrl;
+              myController2.text = value.content.downloadUrl;
+              isUploading = false;
+            }));
+    github.repositories
+        .createFile(
+            RepositorySlug('codenameakshay2', 'prism-walls'),
+            CreateFile(
+                message: "thumb_${Path.basename(_image.path)}",
+                content: base64ImageThumb,
+                path: 'thumb_${Path.basename(_image.path)}'))
+        .then((value) => setState(() {
+              _uploadedResizedFileURL = value.content.downloadUrl;
+            }));
     print('File Uploaded');
-    storageReference.getDownloadURL().then((fileURL) {
-      setState(() {
-        _uploadedFileURL = fileURL;
-        isUploading = false;
-        myController2.text = fileURL;
-      });
-    });
   }
 
   void createRecord() async {
@@ -103,7 +124,7 @@ class _WallSheetState extends State<WallSheet> {
       'userPhoto': preferences.getString('userPhoto'),
       'id': myController1.text,
       'wallpaper_provider': myController4.text,
-      'wallpaper_thumb': _uploadedFileURL,
+      'wallpaper_thumb': _uploadedResizedFileURL,
       'wallpaper_url': _uploadedFileURL,
       'resolution': myController3.text,
       'size': myController5.text,
